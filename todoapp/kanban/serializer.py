@@ -3,15 +3,15 @@ from appusers.serializer import AppUserSerializer
 from .models import WorkProject, KanbanBoard
 
 
-class WorkProjectSerializer(ModelSerializer):
+class WorkProjectSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = WorkProject
-        fields = '__all__'
+        fields = ('name', 'project_users')
 
 
 class KanbanBoardSerializer(ModelSerializer):
-    user = AppUserSerializer()
+    user = AppUserSerializer
 
     class Meta:
         model = KanbanBoard
-        fields = '__all__'
+        fields = ('project', 'creator', 'element_title', 'element_description', 'element_status')
