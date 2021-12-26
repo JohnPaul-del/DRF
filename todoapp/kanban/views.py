@@ -1,6 +1,8 @@
+import requests
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
+from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from .serializer import WorkProjectSerializer, KanbanBoardSerializer
@@ -44,3 +46,10 @@ class KanbanBoardViewSet(ModelViewSet):
         kanban.is_active = False
         kanban.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+def test_token(request):
+    response = requests.post('http://127.0.0.1:8000/api-token-auth',
+                             data={'username': 'test_token', 'password': 'token'})
+    html = "<html><body>token= %s.</body></html>" % response.json()
+    return HttpResponse(html)
