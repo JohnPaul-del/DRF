@@ -6,6 +6,6 @@ from .serializer import AppUserSerializer
 
 
 class AppUserViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, GenericViewSet):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = AppUsers.objects.all()
     serializer_class = AppUserSerializer
