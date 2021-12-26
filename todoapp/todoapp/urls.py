@@ -28,7 +28,7 @@ router.register('kanban', KanbanBoardViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/', include(router.urls)),
+    path('api/', include(router.urls), name='api'),
     path('api-token-auth/', views.obtain_auth_token),
     path('test_token/', test_token)
 ]

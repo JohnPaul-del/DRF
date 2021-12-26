@@ -49,7 +49,7 @@ class KanbanBoardViewSet(ModelViewSet):
 
 
 def test_token(request):
-    response = requests.post('http://127.0.0.1:8000/api-token-auth',
-                             data={'username': 'test_token', 'password': 'token'})
+    response = requests.post('http://127.0.0.1:8000/api-token-auth/',
+                             data={'username': 'admin', 'password': '1qaz'})
     html = "<html><body>token= %s.</body></html>" % response.json()
     return HttpResponse(html)
