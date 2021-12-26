@@ -6,7 +6,7 @@ from .models import WorkProject, KanbanBoard
 class WorkProjectSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = WorkProject
-        fields = ('name', 'project_users')
+        fields = ('name', 'project_users', 'project_id')
 
 
 class KanbanBoardSerializer(ModelSerializer):

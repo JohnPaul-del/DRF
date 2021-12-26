@@ -4,7 +4,7 @@ const UsersItem = ({appuser}) => {
     return (
         <tr>
             <td>
-                {appuser.user_login}
+                {appuser.username}
             </td>
             <td>
                 {appuser.first_name}
@@ -13,7 +13,7 @@ const UsersItem = ({appuser}) => {
                 {appuser.last_name}
             </td>
             <td>
-                {appuser.user_email}
+                {appuser.email}
             </td>
         </tr>
     )
@@ -34,10 +34,13 @@ const UsersList = ({appusers}) => {
            <th>
                Email
            </th>
-           {appusers.map((appuser) => <UsersItem appuser={appuser} />)}
+           <tbody>
+                {appusers.map((appuser)=> <UsersItem appuser={appuser} />)}
+           </tbody>
        </table>
+
 
     )
 }
 
-export default UsersList
+export default UsersList;
