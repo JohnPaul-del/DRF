@@ -5,7 +5,8 @@ from django_filters import rest_framework as filters
 from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
-from .serializer import WorkProjectSerializer, KanbanBoardSerializer
+from rest_framework import generics
+from .serializer import WorkProjectSerializer, KanbanBoardSerializer, WorkProjectSerializerShort
 from .models import WorkProject, KanbanBoard
 
 
@@ -21,11 +22,16 @@ class ProjectFilter(filters.FilterSet):
         fields = ['name']
 
 
-class WorkProjectViewSet(ModelViewSet):
+class WorkProjectViewSet(ModelViewSet, generics.ListAPIVies):
     queryset = WorkProject.objects.all()
     serializer_class = WorkProjectSerializer
     pagination_class = ProjectsLimitPagination
     filterset_class = ProjectFilter
+
+    def get_serializer_class(self):
+        if self.request.version == '2.0':
+            return WorkProjectSerializerShort
+        return WorkProjectSerializer
 
 
 class KanbanLimitPagination(LimitOffsetPagination):
