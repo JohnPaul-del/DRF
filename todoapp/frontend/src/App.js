@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch, Redirect, Link} from 'react-router-dom'
 import UsersList from './components/Appusers.js'
 import ProjectList from './components/Projects.js'
 import KanbanList from './components/Kanban.js'
+import Kanban_graphql from './components/Kanban_graphql.js'
 import ProjectDetail from './components/ProjectDetail.js'
 import LoginForm from './components/Auth.js'
 import Cookies from 'universal-cookie'
@@ -26,6 +27,7 @@ class App extends React.Component {
             'appusers': [],
             'projects': [],
             'kanbans': [],
+            'kanbans_graphql': [],
             'token': '',
 
         }
@@ -116,6 +118,18 @@ class App extends React.Component {
                 )
             })
             .catch(error => console.log(error))
+
+             axios
+                .get('http://127.0.0.1:8000/graphql/?query={allTodos {id text isActive project {name} user {username}}}', {headers})
+                .then(response => {
+                    const todos_graphql = response.data.data.allTodos
+                    this.setState(
+                        {
+                            'todos_graphql': todos_graphql
+                        }
+                    )
+                })
+                .catch(error => console.log(error))
     }
 
     componentDidMount() {
@@ -137,6 +151,7 @@ class App extends React.Component {
                 <Route exact path='/' component={() => <ProjectList projects={this.state.projects}/>}/>
                 <Route exact path='/kanban' component={() => <KanbanList kanbans={this.state.kanbans}/>}/>
                 <Route exact path='/appusers' component={() => <UsersList appusers={this.state.appusers}/>}/>
+                <Route exact path='/kanbans_graphql' component={() => <Kanban_graphql kanbans={this.state.kanbans_graphql}/>}/>
                 <Route exact path='/project/:id'>
                    <ProjectDetail projects={this.state.projects} appusers={this.state.appusers} kanbans={this.state.kanbans} />
                 <Route exact path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)}/>}/>
