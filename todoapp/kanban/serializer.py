@@ -19,7 +19,7 @@ class KanbanBoardSerializer(ModelSerializer):
 
 class WorkProjectSerializerShort(ModelSerializer):
 
-    users = serializers.StringRelatedField(many=True)
+    # users = serializer.StringRelatedField(many=True)
 
     class Meta:
         model = WorkProject

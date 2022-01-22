@@ -22,7 +22,7 @@ class ProjectFilter(filters.FilterSet):
         fields = ['name']
 
 
-class WorkProjectViewSet(ModelViewSet, generics.ListAPIVies):
+class WorkProjectViewSet(ModelViewSet, generics.ListAPIView):
     queryset = WorkProject.objects.all()
     serializer_class = WorkProjectSerializer
     pagination_class = ProjectsLimitPagination
