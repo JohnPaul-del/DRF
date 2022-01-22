@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const KanbanItem = ({kanban}) => {
+    if (kanban.is_active) {
     return (
         <tr>
             <td>{kanban.project}</td>
@@ -11,9 +12,11 @@ const KanbanItem = ({kanban}) => {
             <td>{kanban.element_status}</td>
         </tr>
     )
+    }
+    return ""
 }
 
-const KanbanList = ({kanbans}) => {
+const KanbanList = ({kanbans, deleteKanban}) => {
     return (
         <table>
            <th>Project ID</th>
@@ -22,9 +25,11 @@ const KanbanList = ({kanbans}) => {
            <th>Description</th>
            <th>Status</th>
            <tbody>
-                {kanbans.map((kanban)=> <KanbanItem kanban={kanban} />)}
+                {kanbans.map((kanban)=> <KanbanItem kanban={kanban} deleteKanban={deleteKanban} />)}
            </tbody>
+           <Link to='/kanban/create'>Create</Link>
        </table>
+
     )
 }
 
